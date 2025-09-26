@@ -16,7 +16,7 @@ const Index = () => {
         <div className="w-16 h-16 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-4">
           <span className="text-2xl font-bold text-white">SE</span>
         </div>
-        <p className="text-muted-foreground">Loading Smart Education...</p>
+        <p className="text-muted-foreground">Loading Gyaani Bot...</p>
       </div>
     </div>
   );

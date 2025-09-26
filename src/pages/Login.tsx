@@ -58,9 +58,9 @@ const Login = () => {
                 transition={{ type: 'spring', delay: 0.2 }}
                 className="w-16 h-16 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-4"
               >
-                <span className="text-2xl font-bold text-white">SE</span>
+                <span className="text-2xl font-bold text-white">GB</span>
               </motion.div>
-              <h1 className="text-2xl font-bold mb-2">Welcome to Smart Education</h1>
+              <h1 className="text-2xl font-bold mb-2">Welcome to Gyaani Bot</h1>
               <p className="text-muted-foreground text-sm">
                 Sign in to continue your learning journey
               </p>
