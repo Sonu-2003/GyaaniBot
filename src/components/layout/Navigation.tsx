@@ -46,10 +46,10 @@ const Navigation = () => {
               className="flex items-center space-x-2"
             >
               <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <span className="text-white font-bold text-lg">SE</span>
+                <span className="text-white font-bold text-lg">GB</span>
               </div>
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Smart Education
+                Gyaani Bot
               </span>
             </motion.div>
           </Link>

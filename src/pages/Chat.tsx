@@ -12,7 +12,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 const SAMPLE_MESSAGES: Message[] = [
   {
     id: '1',
-    content: 'Hello! I\'m your Smart Education AI assistant. I can help you with various subjects including Mathematics, Physics, Chemistry, History, and more. How can I assist you today?',
+    content: 'Hello! I\'m your Gyaani Bot AI assistant. I can help you with various subjects including Mathematics, Physics, Chemistry, History, and more. How can I assist you today?',
     role: 'assistant',
     timestamp: new Date(Date.now() - 300000), // 5 minutes ago
   },
@@ -104,20 +104,21 @@ const Chat = () => {
         {/* Main Chat Area */}
         <div className="flex-1 flex flex-col">
           {/* Mobile Sidebar Toggle */}
-          <div className="lg:hidden flex items-center justify-between p-4 border-b border-border">
+          <div className="lg:hidden flex items-center justify-between p-2 sm:p-4 border-b border-border">
             <h1 className="text-lg font-semibold">Chat</h1>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="h-9 w-9 p-0"
             >
-              {isSidebarOpen ? <FiX className="h-5 w-5" /> : <FiSidebar className="h-5 w-5" />}
+              {isSidebarOpen ? <FiX className="h-4 w-4 sm:h-5 sm:w-5" /> : <FiSidebar className="h-4 w-4 sm:h-5 sm:w-5" />}
             </Button>
           </div>
 
           {/* Messages Area */}
           <ScrollArea className="flex-1">
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-4xl mx-auto px-2 sm:px-4">
               {messages.length === 0 ? (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -126,9 +127,9 @@ const Chat = () => {
                 >
                   <div className="text-center space-y-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-primary rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">SE</span>
+                      <span className="text-2xl font-bold text-white">GB</span>
                     </div>
-                    <h2 className="text-2xl font-bold">Welcome to Smart Education</h2>
+                    <h2 className="text-2xl font-bold">Welcome to Gyaani Bot</h2>
                     <p className="text-muted-foreground max-w-md">
                       Start a conversation with your AI learning assistant. 
                       Ask questions about any subject and get detailed explanations.
