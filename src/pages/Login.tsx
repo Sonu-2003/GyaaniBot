@@ -28,16 +28,30 @@ const Login = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent, type: 'login' | 'signup') => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log(`${type} attempt with:`, formData);
-      setIsLoading(false);
-      // Here you would typically handle the authentication
-    }, 2000);
-  };
+  e.preventDefault();
+  setIsLoading(true);
+
+  const url = type === 'login' ? 'http://localhost:5000/api/auth/login' : 'http://localhost:5000/api/auth/signup';
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    const data = await res.json();
+    console.log(data);
+
+    if (res.ok && type === 'login') {
+      localStorage.setItem('token', data.token); // Save JWT
+    }
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-bg flex flex-col">

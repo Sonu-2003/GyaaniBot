@@ -12,20 +12,22 @@ interface ChatInputProps {
 const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
   const [message, setMessage] = useState('');
   const [isRecording, setIsRecording] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Handle sending message
   const handleSend = () => {
-    if (message.trim() && !isLoading) {
-      onSendMessage(message.trim());
+    if ((message.trim() || selectedFile) && !isLoading) {
+      onSendMessage(message.trim(), selectedFile || undefined);
       setMessage('');
-      // Reset textarea height
-      if (textareaRef.current) {
-        textareaRef.current.style.height = 'auto';
-      }
+      setSelectedFile(null);
+      if (textareaRef.current) textareaRef.current.style.height = 'auto';
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
+  // Handle Enter key for sending
   const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -33,26 +35,20 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  // Handle file selection
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
     if (file) {
-      onSendMessage(`Uploaded file: ${file.name}`, file);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+      setSelectedFile(file);
     }
   };
 
-  const toggleRecording = () => {
-    setIsRecording(!isRecording);
-    // TODO: Implement voice recording functionality
-  };
+  // Toggle voice recording (future implementation)
+  const toggleRecording = () => setIsRecording(!isRecording);
 
+  // Auto-resize textarea
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
-    
-    // Auto-resize textarea
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
@@ -66,6 +62,7 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
     >
       <div className="max-w-4xl mx-auto">
         <div className="flex items-end gap-3 bg-card rounded-2xl border border-border p-3 shadow-lg">
+
           {/* File Upload */}
           <div className="flex-shrink-0">
             <input
@@ -86,6 +83,13 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
             </Button>
           </div>
 
+          {/* Display selected file */}
+          {selectedFile && (
+            <div className="flex items-center px-2 py-1 bg-muted rounded-md text-xs text-muted-foreground">
+              {selectedFile.name}
+            </div>
+          )}
+
           {/* Text Input */}
           <div className="flex-1">
             <Textarea
@@ -93,7 +97,7 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
               value={message}
               onChange={handleTextareaChange}
               onKeyDown={handleKeyPress}
-              placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+              placeholder="Type your message here... (Enter to send)"
               className="min-h-[40px] max-h-[120px] resize-none border-none bg-transparent p-0 text-sm placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
               disabled={isLoading}
             />
@@ -112,10 +116,7 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
               }`}
               disabled={isLoading}
             >
-              {isRecording ? 
-                <FiMicOff className="h-4 w-4" /> : 
-                <FiMic className="h-4 w-4" />
-              }
+              {isRecording ? <FiMicOff className="h-4 w-4" /> : <FiMic className="h-4 w-4" />}
             </Button>
           </div>
 
@@ -123,7 +124,7 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
           <div className="flex-shrink-0">
             <Button
               onClick={handleSend}
-              disabled={!message.trim() || isLoading}
+              disabled={!message.trim() && !selectedFile || isLoading}
               size="sm"
               className="h-9 w-9 p-0 bg-gradient-primary hover:opacity-90 transition-opacity"
             >
@@ -140,7 +141,6 @@ const ChatInput = ({ onSendMessage, isLoading = false }: ChatInputProps) => {
           </div>
         </div>
 
-        {/* Tips */}
         <div className="mt-2 text-center">
           <p className="text-xs text-muted-foreground">
             Press <kbd className="px-1 py-0.5 text-xs bg-muted rounded">Enter</kbd> to send, 

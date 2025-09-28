@@ -28,12 +28,12 @@ const ChatSidebar = ({ isOpen, onClose }: ChatSidebarProps) => {
       description: 'PDF, DOC, TXT files',
       onClick: () => console.log('Upload document'),
     },
-    {
-      icon: FiBookOpen,
-      label: 'Study Materials',
-      description: 'Access your resources',
-      onClick: () => console.log('Study materials'),
-    },
+    // {
+    //   icon: FiBookOpen,
+    //   label: 'Study Materials',
+    //   description: 'Access your resources',
+    //   onClick: () => console.log('Study materials'),
+    // },
     {
       icon: FiHelpCircle,
       label: 'FAQ & Help',
@@ -49,10 +49,10 @@ const ChatSidebar = ({ isOpen, onClose }: ChatSidebarProps) => {
   ];
 
   const recentChats = [
-    { id: '1', title: 'Mathematics - Algebra Help', time: '2 hours ago', messages: 15 },
-    { id: '2', title: 'Physics - Newton\'s Laws', time: '1 day ago', messages: 8 },
-    { id: '3', title: 'Chemistry - Organic Compounds', time: '2 days ago', messages: 12 },
-    { id: '4', title: 'History - World War II', time: '3 days ago', messages: 6 },
+    // { id: '1', title: 'Mathematics - Algebra Help', time: '2 hours ago', messages: 15 },
+    // { id: '2', title: 'Physics - Newton\'s Laws', time: '1 day ago', messages: 8 },
+    // { id: '3', title: 'Chemistry - Organic Compounds', time: '2 days ago', messages: 12 },
+    // { id: '4', title: 'History - World War II', time: '3 days ago', messages: 6 },
   ];
 
   const faqItems = [
